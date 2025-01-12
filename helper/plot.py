@@ -1,6 +1,6 @@
 import json
 
-with open("../runs/DrRank_V2.Qwen2.5-7B-Instruct.criteria.L5.jsonl") as f:
+with open("runs/DrRank_V2.Qwen2.5-7B-Instruct.criteria.L5.jsonl") as f:
     ground_truths = []
     predict_scores = []
     for line in f:
@@ -48,6 +48,8 @@ label_zh_en_map = {
     "无关": "NR",
 }
 
+ground_truths = [gt if gt < 3 else 3 for gt in ground_truths]
+
 for i in range(len(ground_truths)):
     gt = ground_truths[i]
     normalize_dict = normalize_socre(predict_scores[i])
@@ -81,7 +83,7 @@ for i, gt in enumerate(list(set(ground_truths))):
         linewidth=1.25,
     )
     if gt < 3:
-        axes[i].set_title(f"Ground-Truth Relevance= {gt}", fontsize=17)
+        axes[i].set_title(f"Ground-Truth Relevance = {gt}", fontsize=17)
     else:
         axes[i].set_title(f"Ground-Truth Relevance >= 3", fontsize=17)
     axes[i].set_xlabel("")
@@ -96,4 +98,4 @@ axes[1].set_xlabel(r"(b)", fontsize=20)
 axes[2].set_xlabel(r"(c)", fontsize=20)
 axes[3].set_xlabel(r"(d)", fontsize=20)
 plt.tight_layout()
-plt.savefig("DrRank_V2.Qwen2.5-7B-Instruct.criteria.L5.pdf")
+plt.savefig("figs/DrRank_V2.Qwen2.5-7B-Instruct.criteria.L5.pdf")

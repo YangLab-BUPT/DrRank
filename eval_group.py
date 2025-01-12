@@ -19,9 +19,17 @@ def aggregate_score(scores, label_map, strategy="mean"):
             )
         return score
 
-    def _get_score_by_max(adict):
-        max_key = max(adict, key=adict.get)
-        return label_map[max_key]
+    def _get_score_by_max_logit(adict):
+        max_key = max(adict, key=label_map.get)
+        return adict[max_key]
+    
+    def _get_score_by_max_prob(adict):
+        temperature = 1
+        values = np.array(list(adict.values())) / temperature
+        softmax_sum = np.sum(np.exp(values - np.max(values)))
+        max_key = max(adict, key=label_map.get)
+        score = np.exp(adict[max_key] / temperature - np.max(values)) / softmax_sum
+        return score
 
     aggregated_scores = []
     for query_scores in scores:
@@ -29,12 +37,15 @@ def aggregate_score(scores, label_map, strategy="mean"):
         for pos_score_dict in query_scores:
             if strategy == "mean":
                 query_aggregated.append(_get_score_by_mean(pos_score_dict))
-            elif strategy == "max":
-                query_aggregated.append(_get_score_by_max(pos_score_dict))
+            elif strategy == "max_logit":
+                query_aggregated.append(_get_score_by_max_logit(pos_score_dict))
+            elif strategy == "max_prob":
+                query_aggregated.append(_get_score_by_max_prob(pos_score_dict))
             else:
                 raise ValueError(f"Unsupported strategy: {strategy}")
         aggregated_scores.append(query_aggregated)
 
+    # print(f"Aggregated scores: {aggregated_scores}")
     return aggregated_scores
 
 
@@ -252,13 +263,13 @@ if __name__ == "__main__":
     num = 5
     prefix = ""
     
-    score_strategy = "mean" # "mean" or "max"
+    score_strategy = "mean" # "mean" or "max_logit" or "max_prob"
     
     
     criteria_flag = ".criteria" if is_criteria else ""
     for size in iters:
         input_path = f"runs/DrRank_V2.Qwen2.5-{size}-Instruct{criteria_flag}.L{num}{prefix}.jsonl"
-        log_path = f"logs/DrRank.Qwen2.5-{size}-Instruct{criteria_flag}.L{num}.log"
+        log_path = f"logs/DrRank_V2.Qwen2.5-{size}-Instruct{criteria_flag}.L{num}.log"
         
         # 读取数据
         with open(input_path, "r", encoding="utf-8") as f:
