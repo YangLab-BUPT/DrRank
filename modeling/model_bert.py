@@ -13,8 +13,6 @@ class CrossEncoder:
         query_format="{}",
         document_format="{}",
     ):
-        super().__init__()
-
         self.model = hf_model
         self.tokenizer = tokenizer
         self.query_format = query_format

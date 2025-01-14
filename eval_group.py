@@ -267,6 +267,7 @@ if __name__ == "__main__":
     
     
     criteria_flag = ".criteria" if is_criteria else ""
+    # criteria_flag = ".random_criteria" if is_criteria else ""
     for size in iters:
         input_path = f"runs/DrRank_V2.Qwen2.5-{size}-Instruct{criteria_flag}.L{num}{prefix}.jsonl"
         log_path = f"logs/DrRank_V2.Qwen2.5-{size}-Instruct{criteria_flag}.L{num}.log"

@@ -7,6 +7,16 @@ from modeling.model_bert import CrossEncoder
 from modeling.model_llm_logit import LlmPointwiseRanker
 
 
+# import debugpy
+# try:
+#     # 5678 is the default attach port in the VS Code debug configurations. Unless a host and port are specified, host defaults to 127.0.0.1
+#     debugpy.listen(("localhost", 9501))
+#     print("Waiting for debugger attach")
+#     debugpy.wait_for_client()
+# except Exception as e:
+#     pass
+
+
 def replace_illegal_chars(value):
     if isinstance(value, str):
         return "".join(ch if ord(ch) >= 32 or ch in "\t\n\r" else "_" for ch in value)
@@ -197,6 +207,7 @@ def main():
         assert score_idx == len(scores) and explanation_idx == len(explanations)
         if args.using_criteria:
             criteria_flag = ".criteria"
+            # criteria_flag = ".random_criteria"
         else:
             criteria_flag = ""
         if args.model_type == "llm-logit":
@@ -370,6 +381,7 @@ def main():
 
         if neg == 0:
             return 666666
+        # print(f"pos: {pos}, neg: {neg}")
         return round(pos / neg, 2)
 
     def _calculate_pnr(ground_truths, rerank_results):

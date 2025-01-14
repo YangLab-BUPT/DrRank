@@ -3,14 +3,13 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from tqdm import tqdm
 import json
 import time
+import random
 
 
 class LlmPointwiseRanker:
     def __init__(
         self, hf_model=None, tokenizer=None, ranking_criteria_map=None, label_nums=5, query_format="{}"
     ):
-        super().__init__()
-
         self.model = hf_model
         self.tokenizer = tokenizer
         self.query_format = query_format
@@ -173,6 +172,10 @@ class LlmPointwiseRanker:
                 treatment = match.group(1)
                 disease = match.group(2)
                 key = f"{disease}-{treatment}"
+                # keys_copy = list(self.ranking_criteria_map.keys())
+                # keys_copy.remove(key)
+                # key = random.choice(keys_copy) # Randomly select
+                
                 if key not in self.ranking_criteria_map:
                     print(f"Missing ranking criteria for {key}")
                     self.ranking_criteria_map[key] = "暂无评价标准"
@@ -221,7 +224,7 @@ class LlmPointwiseRanker:
 
         ranking_criteria_map = None
         # criteria_file = f"adapter/DrRank_criteria.{model_name_or_path.split('/')[-1]}.json"
-        criteria_file = "adapter/DrRank_criteria.Qwen2.5-7B-Instruct.json"
+        criteria_file = "adapter/DrRank_V2_criteria.Qwen2.5-7B-Instruct.json"
         if using_criteria:
             with open(
                 criteria_file,
