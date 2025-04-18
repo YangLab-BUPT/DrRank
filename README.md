@@ -1,6 +1,6 @@
 # DrRec-LLM
 
-Code for paper "Towards Explainable Doctor Recommendation with Large Language Models".
+Code for paper "A Zero-shot Explainable Doctor Ranking Framework with Large Language Models".
 
 - The doctor data utilized in this research was collected from [Haodf Online](https://www.haodf.com), and the ownership of this data belongs to Haodf Online. 
 The data source has been clearly acknowledged within the paper. 
@@ -100,12 +100,6 @@ CUDA_VISIBLE_DEVICES="0" python -u eval.py \
   --label_nums 5 \
   --using_criteria \
 >> logs/DrRank_V2.Qwen2.5-7B-Instruct.criteria.L5.log
-```
-
-### Performance Evaluation w/ evaluation groups
-
-```bash
-python eval_group.py
 ```
 
 ## Cite
