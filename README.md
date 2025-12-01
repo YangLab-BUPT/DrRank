@@ -8,7 +8,7 @@ Code for paper "A Zero-shot Explainable Doctor Ranking Framework with Large Lang
 
 ## 📢 News
 
-- **[2025.09]** Paper accepted at *Big Data Mining and Analytics*!
+- **[2025.09]** Paper accepted at *Big Data Mining and Analytics* (JCR Q1)!
 - **[2025.01]** Code and dataset released.
 
 
@@ -18,7 +18,7 @@ Code for paper "A Zero-shot Explainable Doctor Ranking Framework with Large Lang
 
 ## Overview
 
-![Overview of our proposed LLM-based doctor ranking framework for doctor recommendation](figs/DrRec-LLM-framework.png)
+![Overview of our proposed LLM-based doctor ranking framework for doctor recommendation](figs/DrRank-LLM-framework.png)
 
 We propose **DrRank**, a zero-shot LLM-based doctor ranking framework designed for explainable doctor recommendation in healthcare systems. Our approach features:
 
@@ -40,7 +40,7 @@ We propose **DrRank**, a zero-shot LLM-based doctor ranking framework designed f
 
 ## Usage
 
-### Ranking Criteria Generation
+### Step 1: Ranking Criteria Generation
 
 The ranking criteria adapter generates disease-treatment specific evaluation criteria using LLMs:
 
@@ -267,12 +267,12 @@ If you find this work useful, please cite our paper:
 
 ```
 @misc{zeng2025zeroshotexplainabledoctorranking,
-      title={A Zero-shot Explainable Doctor Ranking Framework with Large Language Models}, 
-      author={Ziyang Zeng and Dongyuan Li and Yuqing Yang},
-      year={2025},
-      eprint={2503.02298},
-      archivePrefix={arXiv},
-      primaryClass={cs.IR},
-      url={https://arxiv.org/abs/2503.02298}, 
+  title={A Zero-shot Explainable Doctor Ranking Framework with Large Language Models}, 
+  author={Ziyang Zeng and Dongyuan Li and Yuqing Yang},
+  year={2025},
+  eprint={2503.02298},
+  archivePrefix={arXiv},
+  primaryClass={cs.IR},
+  url={https://arxiv.org/abs/2503.02298}, 
 }
 ```
